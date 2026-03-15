@@ -20,12 +20,14 @@ This guide describes how to set up the iHeater as a standalone Klipper MCU (with
 
 Compile the firmware for the STM32F042 microcontroller.
 
-1. Navigate to the Klipper directory and open the configuration menu:
+1. Connect iHeater with a USB 2.0 port from your Raspberry!
+   
+2. Navigate to the Klipper directory and open the configuration menu:
    ```bash
    cd ~/klipper
    make menuconfig
    ```
-2. Apply the settings from the original description: [Flashing Firmware](https://github.com/zanex88/iHeater/blob/main/flashing.en.md)
+3. Apply the settings from the original description: [Flashing Firmware](https://github.com/zanex88/iHeater/blob/main/flashing.en.md)
 
 
 ## 3. Flash STM32 Firmware
