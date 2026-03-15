@@ -1,6 +1,30 @@
 # iHeater Integration via Klipper and Home Assistant
 
-This guide describes how to set up the iHeater as a standalone Klipper MCU (without a printer mainboard) and integrate its chamber control macro into Home Assistant based on the active print material.
+This guide explains how to run the **iHeater** as a standalone Klipper MCU (without a printer mainboard) and control the chamber temperature via **Home Assistant** based on the active print material.
+
+The setup uses:
+
+- **Klipper** running on a Raspberry Pi
+- **Moonraker** as API layer
+- **Mainsail** for Klipper management
+- **Home Assistant** for automation and material-based temperature control
+
+The repository already contains the required configuration files:
+
+- `printer.cfg`
+- `iHeater.cfg`
+
+# Prerequisites
+
+Before starting, ensure you have:
+
+- Raspberry Pi (recommended: Pi 3 or newer)
+- Raspberry Pi OS or OS Lite (64-bit)
+- iHeater board
+- USB cable
+- Home Assistant instance
+- Network access between Home Assistant and the Raspberry Pi
+
 
 ## 1. Raspberry Pi Setup with KIAUH
 
@@ -20,14 +44,24 @@ This guide describes how to set up the iHeater as a standalone Klipper MCU (with
 
 Compile the firmware for the STM32F042 microcontroller.
 
-1. Connect iHeater with a USB 2.0 port from your Raspberry!
+1. Connect the iHeater to a USB port of your Raspberry Pi.
+   Verify that the device is detected:
+   ```bash
+   ls /dev/serial/by-id/
+   ```
+   You should see a device similar to:
+   ```bash
+   /dev/serial/by-id/usb-Klipper_stm32f042...
+   ```
    
-2. Navigate to the Klipper directory and open the configuration menu:
+2. Compile Klipper Firmware
+    Navigate to the Klipper directory:
    ```bash
    cd ~/klipper
    make menuconfig
    ```
-3. Apply the settings from the original description: [Flashing Firmware](https://github.com/zanex88/iHeater/blob/main/flashing.en.md)
+3. Configure the firmware according to the official iHeater documentation:
+   https://github.com/zanex88/iHeater/blob/main/flashing.en.md
 
 
 ## 3. Flash STM32 Firmware
@@ -42,11 +76,9 @@ Compile the firmware for the STM32F042 microcontroller.
 ## 4. Adjust Klipper Configs
 
 Open the Mainsail web interface (via the Pi's IP address) and edit the configuration files (Menu left side "Machine").
-
-* Edit `printer.cfg`
-
-* Upload `iHeater.cfg`
-
+Upload the configuration files from this repository. USE your MCU serial in printer.cfg.
+* `printer.cfg`
+* `iHeater.cfg`
 
 Save and click **FIRMWARE RESTART**.
 
